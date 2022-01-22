@@ -24,7 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Created to manage bluekazu's software development career and portfolio.
   Also some software development posts will be added.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://bluekazu.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: not yet
 github_username:  bluekazu
 
