@@ -1,5 +1,6 @@
 ---
 # the default layout is 'page'
+title: 방명록
 icon: fas fa-comment-dots
 order: 5
 ---
