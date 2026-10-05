@@ -1,0 +1,1 @@
+# bluekazu.github.io
