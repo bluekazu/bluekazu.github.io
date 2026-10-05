@@ -1,0 +1,30 @@
+title: "bluekazu's log"
+description: "영화 · 만화 · 도서 · 전시 감상 기록"
+lang: ko
+timezone: Asia/Seoul
+url: "https://bluekazu.github.io"
+baseurl: ""
+
+# 카테고리 목록 (필터 메뉴 순서)
+review_categories:
+  - 영화
+  - 만화
+  - 도서
+  - 전시
+
+collections:
+  reviews:
+    output: true
+    permalink: /reviews/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: reviews
+    values:
+      layout: review
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

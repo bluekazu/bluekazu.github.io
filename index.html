@@ -1,0 +1,50 @@
+---
+layout: default
+---
+<div class="toolbar">
+  <div class="filters">
+    <div class="dropdown" data-filter="cat">
+      <button type="button" class="dd-btn" aria-haspopup="listbox" aria-expanded="false">
+        <span class="dd-label">카테고리</span><span class="dd-value">전체</span>
+        <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <ul class="dd-menu" role="listbox">
+        <li><button type="button" data-value="">전체</button></li>
+        {%- for c in site.review_categories %}
+        <li><button type="button" data-value="{{ c }}">{{ c }}</button></li>
+        {%- endfor %}
+      </ul>
+    </div>
+    <div class="dropdown" data-filter="year">
+      <button type="button" class="dd-btn" aria-haspopup="listbox" aria-expanded="false">
+        <span class="dd-label">연도</span><span class="dd-value">전체</span>
+        <svg class="chev" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <ul class="dd-menu" role="listbox">
+        <li><button type="button" data-value="">전체</button></li>
+        <!-- 연도 목록은 filter.js가 리뷰 데이터에서 자동 생성 -->
+      </ul>
+    </div>
+  </div>
+  <span class="count" id="count"></span>
+</div>
+
+<div class="grid" id="grid">
+  {%- for r in site.reviews %}
+  {%- assign d = r.end | default: r.start %}
+  {%- capture key %}{% include cat-key.html cat=r.category %}{% endcapture %}
+  <a class="card" href="{{ r.url | relative_url }}"
+     data-cat="{{ r.category }}" data-year="{{ d | date: '%Y' }}" data-date="{{ d | date: '%Y-%m-%d' }}"
+     data-title="{{ r.title | escape }}" aria-label="{{ r.title | escape }}">
+    <div class="card-title">{{ r.title }}</div>
+    <div class="card-img">
+      <img src="{% include image-url.html src=r.image %}" alt="{{ r.title | escape }}" loading="lazy" referrerpolicy="no-referrer"
+           onerror="this.remove()">
+      <span class="badge cat-{{ key }}">{{ r.category }}</span>
+    </div>
+  </a>
+  {%- endfor %}
+</div>
+<p class="empty" id="empty" hidden>조건에 맞는 감상 기록이 없습니다.</p>
+
+<script src="{{ '/assets/js/filter.js' | relative_url }}"></script>

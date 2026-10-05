@@ -1,0 +1,5 @@
+{%- if include.date -%}
+{%- assign _w = include.date | date: "%w" | plus: 0 -%}
+{%- assign _days = "일,월,화,수,목,금,토" | split: "," -%}
+{{- include.date | date: "%Y-%m-%d" -}}-{{- _days[_w] -}}
+{%- else -%}감상 중{%- endif -%}

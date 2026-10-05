@@ -1,0 +1,43 @@
+---
+layout: default
+---
+{%- capture key %}{% include cat-key.html cat=page.category %}{% endcapture %}
+<article class="review">
+  <a class="back" href="{{ '/' | relative_url }}" id="back">← 목록으로</a>
+
+  <div class="review-head">
+    <div class="review-cover">
+      <img src="{% include image-url.html src=page.image %}" alt="{{ page.title | escape }}" referrerpolicy="no-referrer" onerror="this.remove()">
+    </div>
+    <dl class="meta">
+      <div><dt>제목</dt><dd class="meta-title">{{ page.title }}</dd></div>
+      <div><dt>카테고리</dt><dd><span class="badge inline cat-{{ key }}">{{ page.category }}</span></dd></div>
+      <div><dt>감상 시작</dt><dd>{% include date-ko.html date=page.start %}</dd></div>
+      <div><dt>감상 완료</dt><dd>{% include date-ko.html date=page.end %}</dd></div>
+      <div><dt>출처</dt><dd>{% if page.source_url and page.source_url != "" %}<a href="{{ page.source_url }}" target="_blank" rel="noopener">{{ page.source }}</a>{% else %}{{ page.source }}{% endif %}</dd></div>
+    </dl>
+  </div>
+
+  <section class="review-body">
+    <h2>리뷰</h2>
+    {{ content }}
+  </section>
+
+  {%- if page.image_credit and page.image_credit != "" %}
+  <p class="credit">이미지 출처: <a href="{{ page.image_credit }}" target="_blank" rel="noopener">{{ page.image_credit | split: "/" | slice: 2 | first }}</a></p>
+  {%- endif %}
+
+  <nav class="pager">
+    {%- if page.next %}<a class="newer" href="{{ page.next.url | relative_url }}"><small>‹ 최근 리뷰</small><span>{{ page.next.title }}</span></a>{% else %}<span></span>{% endif %}
+    {%- if page.previous %}<a class="older" href="{{ page.previous.url | relative_url }}"><small>이전 리뷰 ›</small><span>{{ page.previous.title }}</span></a>{% endif %}
+  </nav>
+</article>
+<script>
+  // 목록으로: 직전에 쓰던 필터 상태 복원
+  (function () {
+    try {
+      var q = sessionStorage.getItem('reviewFilter');
+      if (q) document.getElementById('back').href += q;
+    } catch (e) {}
+  })();
+</script>
